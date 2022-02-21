@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Estudo.Domain\Estudo.Domain.csproj" />
     <ProjectReference Include="..\Estudo.Infra\Estudo.Infra.csproj" />
-    <ProjectReference Include="..\Estudos.Domain\Estudo.Domain.csproj" />
   </ItemGroup>
 
 </Project>

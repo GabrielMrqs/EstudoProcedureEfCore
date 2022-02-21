@@ -20,12 +20,11 @@ namespace Estudo.Infra.Procedures.ClientsAndProducts
 
         public ClientAndProducts DataMapper(DbDataReader dbDataReader)
         {
-            var result = new ClientAndProducts()
+            return new ClientAndProducts()
             {
                 Clients = dbDataReader.Translate<Client>(),
                 Products = dbDataReader.Translate<Product>()
             };
-            return result;
         }
     }
 }
