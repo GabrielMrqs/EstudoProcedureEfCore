@@ -19,13 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ClientRepository>();
-
-builder.Services.AddScoped<ProductRepository>();
-
-builder.Services.AddScoped<ClientAndProductsRepository>();
-
-builder.Services.AddScoped<Context>();
+AddFeatures();
 
 var app = builder.Build();
 
@@ -44,7 +38,23 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateAsyncScope())
-await scope.ServiceProvider.GetRequiredService<Context>().Database.MigrateAsync();
+await ApplyMigrations();
 
 app.Run();
+
+void AddFeatures()
+{
+    builder.Services.AddScoped<ClientRepository>();
+
+    builder.Services.AddScoped<ProductRepository>();
+
+    builder.Services.AddScoped<ClientAndProductsRepository>();
+
+    builder.Services.AddScoped<Context>();
+}
+
+async Task ApplyMigrations()
+{
+    using (var scope = app.Services.CreateAsyncScope())
+        await scope.ServiceProvider.GetRequiredService<Context>().Database.MigrateAsync();
+}
